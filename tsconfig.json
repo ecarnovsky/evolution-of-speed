@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "outDir": "built",
+    "allowJs": true,
+    "target": "es5",
+    "skipLibCheck": true,
+    "types": ["babel__core"]
+  },
+  "include": ["ts/**/*"],
+  "typedocOptions": {
+    "entryPoints": ["ts/main.ts" ],
+    "out": "docs"
+  }
+}
