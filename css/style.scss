@@ -1,3 +1,22 @@
 * {
     box-sizing: border-box;
 }
+
+body {
+    background: rgb(192, 192, 192);
+}
+
+h1 {
+    text-align: center;
+}
+
+canvas {
+    background: white;
+    display: block;
+    margin: auto;
+}
+
+#start-pause-btn {
+    display: block;
+    margin: auto;
+}
