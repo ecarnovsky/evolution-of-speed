@@ -3,7 +3,8 @@
 }
 
 body {
-    background: rgb(192, 192, 192);
+    background: rgb(235, 235, 235);
+    font-family: "Nova Mono", monospace;
 }
 
 h1 {
@@ -19,4 +20,6 @@ canvas {
 #start-pause-btn {
     display: block;
     margin: auto;
+    margin-top: 20px;
+    padding: 4.5px 11px;
 }
