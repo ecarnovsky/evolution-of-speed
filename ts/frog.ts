@@ -3,6 +3,7 @@ class Frog {
     age: number
     energy: number
     alive: boolean
+    focus: object
     jumpDistance1: number
     jumpDistance2: number
     likelihoodJump1: number
@@ -15,6 +16,7 @@ class Frog {
         this.likelihoodJump1 = likelihoodJump1
 
         this.alive = true
+        this.focus = null
     }
 
 }
