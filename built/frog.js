@@ -6,6 +6,7 @@ var Frog = /** @class */ (function () {
         this.jumpDistance2 = jumpDistance1;
         this.likelihoodJump1 = likelihoodJump1;
         this.alive = true;
+        this.focus = null;
     }
     return Frog;
 }());
