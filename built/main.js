@@ -7,11 +7,17 @@ var paused = true;
 var frogs = [];
 var food = [];
 var numberOfTicks = 0;
-startNewSimulation();
+var simulationInProgress = false;
 function togglePause() {
     if (paused) {
         this.innerText = "Pause";
         paused = false;
+        if (simulationInProgress) {
+            loopSimulation();
+        }
+        else {
+            startNewSimulation();
+        }
     }
     else {
         this.innerText = "Resume";
@@ -19,6 +25,7 @@ function togglePause() {
     }
 }
 function startNewSimulation() {
+    simulationInProgress = true;
     var INITIAL_POPULATION = 10;
     var INITIAL_FOOD = 20;
     for (var i = 0; i < INITIAL_POPULATION; i++) {
@@ -29,9 +36,15 @@ function startNewSimulation() {
         var newFood = new Food();
         food.push(newFood);
     }
-    runSimulation();
+    loopSimulation();
 }
-function runSimulation() {
+function loopSimulation() {
+    if (!paused) {
+        oneTick();
+        setTimeout(loopSimulation, 1000);
+    }
+}
+function oneTick() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     for (var i = 0; i < food.length; i++) {
         var position = food[i].getPosition();

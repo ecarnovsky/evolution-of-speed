@@ -9,13 +9,18 @@ let paused: boolean = true
 let frogs: Frog[] = []
 let food: Food[] = []
 let numberOfTicks: number = 0
+let simulationInProgress: boolean = false
 
-startNewSimulation()
 
 function togglePause(){
     if(paused){
         this.innerText = "Pause"
         paused = false
+        if(simulationInProgress){
+            loopSimulation()
+        } else {
+            startNewSimulation()
+        }
     } else {
         this.innerText = "Resume"
         paused = true
@@ -25,6 +30,7 @@ function togglePause(){
 
 function startNewSimulation(){
 
+    simulationInProgress = true
     const INITIAL_POPULATION: number = 10
     const INITIAL_FOOD: number = 20
 
@@ -42,10 +48,21 @@ function startNewSimulation(){
 
     }
 
-    runSimulation()
+    loopSimulation()
 }
 
-function runSimulation(){
+function loopSimulation(){
+    
+    if(!paused){
+        oneTick()
+        setTimeout(loopSimulation, 1000)
+    }
+
+}
+
+function oneTick(){
+
+
     ctx.clearRect(0, 0, canvas.width, canvas.height)
 
     for(let i = 0; i < food.length; i++){
