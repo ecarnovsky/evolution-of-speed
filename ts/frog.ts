@@ -1,10 +1,11 @@
-class Frog {
+class Frog extends SimulatedObject {
 
-    static width: number = 10
+    static radius: number = 10
     static lifespan: number = 100
     static energyGainedFromFood: number = 30
     static energyLostFromBirth: number = 20
     static energyWhenSeekFood: number = 60
+    static color: string = 'green'
 
 
     age: number
@@ -14,12 +15,12 @@ class Frog {
     jumpDistance1: number
     jumpDistance2: number
     likelihoodJump1: number
-    positionX: number
-    positionY: number
 
     constructor(age: number, energy: number, jumpDistance1: number,
                  jumpDistance2: number, likelihoodJump1: number,
                  positionX: number, positionY: number){
+
+        super()
         this.age = age
         this.energy = energy
         this.jumpDistance1 = jumpDistance1
@@ -45,9 +46,6 @@ class Frog {
         return new Frog(age, energy, jumpDistance1, jumpDistance2, likelihoodJump1, positionX, positionY)
     }
 
-    getPosition(){
-        return {x: this.positionX, y: this.positionY}
-    }
 
     doAction(){
         this.positionX += 1

@@ -48,11 +48,12 @@ function startNewSimulation(){
 function runSimulation(){
     ctx.clearRect(0, 0, canvas.width, canvas.height)
 
+
     for(let i = 0; i < frogs.length; i++){
 
         frogs[i].doAction()
         let position = frogs[i].getPosition()
-        ctx.arc(position.x, position.y, Frog.width, 0, Math.PI * 2, true)
+        ctx.arc(position.x, position.y, Frog.radius, 0, Math.PI * 2, true)
         ctx.closePath()
         ctx.fillStyle = 'green'
         ctx.fill()

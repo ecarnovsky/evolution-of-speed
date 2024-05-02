@@ -36,7 +36,7 @@ function runSimulation() {
     for (var i = 0; i < frogs.length; i++) {
         frogs[i].doAction();
         var position = frogs[i].getPosition();
-        ctx.arc(position.x, position.y, Frog.width, 0, Math.PI * 2, true);
+        ctx.arc(position.x, position.y, Frog.radius, 0, Math.PI * 2, true);
         ctx.closePath();
         ctx.fillStyle = 'green';
         ctx.fill();
