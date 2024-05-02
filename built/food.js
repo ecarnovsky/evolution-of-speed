@@ -21,7 +21,7 @@ var Food = /** @class */ (function (_super) {
         _this.positionY = Math.floor(Math.random() * canvas.height);
         return _this;
     }
-    Food.color = 'pink';
+    Food.color = 'orange';
     Food.radius = 4;
     return Food;
 }(SimulatedObject));

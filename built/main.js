@@ -33,12 +33,21 @@ function startNewSimulation() {
 }
 function runSimulation() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (var i = 0; i < food.length; i++) {
+        var position = food[i].getPosition();
+        ctx.beginPath();
+        ctx.arc(position.x, position.y, Food.radius, 0, Math.PI * 2, true);
+        ctx.closePath();
+        ctx.fillStyle = Food.color;
+        ctx.fill();
+    }
     for (var i = 0; i < frogs.length; i++) {
         frogs[i].doAction();
         var position = frogs[i].getPosition();
+        ctx.beginPath();
         ctx.arc(position.x, position.y, Frog.radius, 0, Math.PI * 2, true);
         ctx.closePath();
-        ctx.fillStyle = 'green';
+        ctx.fillStyle = Frog.color;
         ctx.fill();
     }
 }

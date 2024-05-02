@@ -1,6 +1,6 @@
 class Food extends SimulatedObject{
 
-    static color: string = 'pink'
+    static color: string = 'orange'
     static radius: number = 4
 
 
