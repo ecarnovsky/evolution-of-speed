@@ -4,7 +4,7 @@
 class Frog extends SimulatedObject {
 
     static radius: number = 10
-    static lifespan: number = 5//70
+    static lifespan: number = 70
     static energyGainedFromFood: number = 30
     static energyLostFromBirth: number = 30
     static energyWhenSeekFood: number = 60

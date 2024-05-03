@@ -111,7 +111,7 @@ class Frog extends SimulatedObject {
     }
 }
 Frog.radius = 10;
-Frog.lifespan = 5; //70
+Frog.lifespan = 70;
 Frog.energyGainedFromFood = 30;
 Frog.energyLostFromBirth = 30;
 Frog.energyWhenSeekFood = 60;
