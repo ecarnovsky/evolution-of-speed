@@ -43,7 +43,7 @@ class Frog extends SimulatedObject {
         return new Frog(age, energy, jumpDistance1, jumpDistance2, likelihoodJump1, positionX, positionY);
     }
     doAction(frogs, food) {
-        if (this.age > Frog.lifespan) {
+        if (this.age > Frog.lifespan || this.energy <= 0) {
             const index = frogs.findIndex(x => x === this);
             frogs[index] = undefined;
             return;
@@ -77,13 +77,13 @@ class Frog extends SimulatedObject {
                 }
             }
             if (Math.abs(this.positionX - positionOfFocus.x) < 15 && Math.abs(this.positionY - positionOfFocus.y) < 15) {
-                this.energy += Frog.energyGainedFromFood;
+                this.energy = Frog.energyGainedFromFood > 100 ? 100 : this.energy + Frog.energyGainedFromFood;
                 const index = food.findIndex(x => x === this.focus);
                 food.splice(index, 1);
             }
         }
         this.age += 1;
-        this.energy -= 1;
+        this.energy -= Frog.energyLostPerDay;
     }
     /**
      * This methods takes in an array that is looped through to find
@@ -115,4 +115,5 @@ Frog.lifespan = 70;
 Frog.energyGainedFromFood = 30;
 Frog.energyLostFromBirth = 30;
 Frog.energyWhenSeekFood = 60;
+Frog.energyLostPerDay = 2;
 Frog.color = 'green';

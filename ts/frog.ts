@@ -8,6 +8,7 @@ class Frog extends SimulatedObject {
     static energyGainedFromFood: number = 30
     static energyLostFromBirth: number = 30
     static energyWhenSeekFood: number = 60
+    static energyLostPerDay: number = 2
     static color: string = 'green'
 
 
@@ -70,7 +71,7 @@ class Frog extends SimulatedObject {
 
     doAction(frogs: Frog[], food: Food[]){
 
-        if(this.age > Frog.lifespan){
+        if(this.age > Frog.lifespan || this.energy <= 0){
             const index = frogs.findIndex( x => x === this)
             frogs[index] = undefined
             return
@@ -107,7 +108,7 @@ class Frog extends SimulatedObject {
             }
 
             if(Math.abs(this.positionX - positionOfFocus.x) < 15 && Math.abs(this.positionY - positionOfFocus.y) < 15){
-                this.energy += Frog.energyGainedFromFood
+                this.energy = Frog.energyGainedFromFood > 100 ? 100 : this.energy + Frog.energyGainedFromFood
                 const index = food.findIndex( x => x === this.focus)
                 food.splice(index, 1)
             }
@@ -118,7 +119,7 @@ class Frog extends SimulatedObject {
 
 
         this.age += 1
-        this.energy -= 1
+        this.energy -= Frog.energyLostPerDay
         
     }
 
