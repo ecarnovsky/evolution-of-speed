@@ -5,6 +5,8 @@ canvas.height = 730
 canvas.width = 730 
 const ctx = canvas.getContext('2d')
 
+const MAX_FOOD: number = 100
+
 let paused: boolean = true
 let frogs: Frog[] = []
 let food: Food[] = []
@@ -74,6 +76,10 @@ function loopSimulation(){
 
     // Clears the canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height)
+
+    if(numberOfTicks % 5 === 0 && food.length < MAX_FOOD){
+        food.push(new Food())
+    }
 
     // Renders food to the canvas
     for(let i = 0; i < food.length; i++){
