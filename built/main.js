@@ -8,6 +8,12 @@ var frogs = [];
 var food = [];
 var numberOfTicks = 0;
 var simulationInProgress = false;
+/**
+ * This function controls what to do when the start/pause/resume
+ * button is clicked. Things like changing the value of the
+ * paused varible, changing the text of the button, and
+ * starting the simulation loop are part of this function.
+ */
 function togglePause() {
     if (paused) {
         this.innerText = "Pause";
@@ -24,6 +30,10 @@ function togglePause() {
         paused = true;
     }
 }
+/**
+ * This function populates the food and frogs arrays
+ * with random food and frogs. It then starts the simulation loop.
+ */
 function startNewSimulation() {
     simulationInProgress = true;
     var INITIAL_POPULATION = 10;
@@ -38,13 +48,13 @@ function startNewSimulation() {
     }
     loopSimulation();
 }
+/**
+ * This function
+ */
 function loopSimulation() {
-    if (!paused) {
-        oneTick();
-        setTimeout(loopSimulation, 1000);
+    if (paused) {
+        return;
     }
-}
-function oneTick() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     for (var i = 0; i < food.length; i++) {
         var position = food[i].getPosition();
@@ -63,4 +73,5 @@ function oneTick() {
         ctx.fillStyle = Frog.color;
         ctx.fill();
     }
+    setTimeout(loopSimulation, 1000);
 }
