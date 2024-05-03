@@ -13,8 +13,23 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+/**
+ * This class represents frogs in the simulation.
+ */
 var Frog = /** @class */ (function (_super) {
     __extends(Frog, _super);
+    /**
+     * @constructor
+     * This constructor is intended to be used for frogs born into the simulation,
+     * not the random frogs generated when the simulation very first begins.
+     * @param age - The age of the frog.
+     * @param energy - The energy the frog currently has. Can be 0 to 100.
+     * @param jumpDistance1 - Jump 1's distance.
+     * @param jumpDistance2 - Jump 2's distance.
+     * @param likelihoodJump1 - The likelihood that a jump will be jump 1 vs jump 2.
+     * @param positionX - The x-coordinate of the frog's current position.
+     * @param positionY - The y-coordinate of the frog's current position.
+     */
     function Frog(age, energy, jumpDistance1, jumpDistance2, likelihoodJump1, positionX, positionY) {
         var _this = _super.call(this) || this;
         _this.age = age;
@@ -28,6 +43,12 @@ var Frog = /** @class */ (function (_super) {
         _this.focus = null;
         return _this;
     }
+    /**
+     * This function is intended to be used for the frogs
+     * that are randomly generated at the start of the simulation,
+     * not frogs born into the simulation.
+     * @returns The newly generated frog.
+     */
     Frog.generateStarterFrog = function () {
         var age = 0;
         var energy = 90;

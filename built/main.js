@@ -49,13 +49,19 @@ function startNewSimulation() {
     loopSimulation();
 }
 /**
- * This function
+ * This function contains the logic needed
+ * to run the simulation. The frogs and food arrays are
+ * looped through so each can be rendered to the screen, and
+ * frogs preform actions.
  */
 function loopSimulation() {
+    // Stops the loop if the simulation is paused
     if (paused) {
         return;
     }
+    // Clears the canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // Renders food to the canvas
     for (var i = 0; i < food.length; i++) {
         var position = food[i].getPosition();
         ctx.beginPath();
@@ -64,6 +70,7 @@ function loopSimulation() {
         ctx.fillStyle = Food.color;
         ctx.fill();
     }
+    // Renders frogs to the canvas
     for (var i = 0; i < frogs.length; i++) {
         frogs[i].doAction();
         var position = frogs[i].getPosition();
@@ -73,5 +80,6 @@ function loopSimulation() {
         ctx.fillStyle = Frog.color;
         ctx.fill();
     }
+    // Calls the loop to be run again after a set delay
     setTimeout(loopSimulation, 1000);
 }

@@ -1,3 +1,6 @@
+/**
+ * This class represents frogs in the simulation.
+ */
 class Frog extends SimulatedObject {
 
     static radius: number = 10
@@ -16,6 +19,18 @@ class Frog extends SimulatedObject {
     jumpDistance2: number
     likelihoodJump1: number
 
+    /**
+     * @constructor
+     * This constructor is intended to be used for frogs born into the simulation,
+     * not the random frogs generated when the simulation very first begins.
+     * @param age - The age of the frog.
+     * @param energy - The energy the frog currently has. Can be 0 to 100.
+     * @param jumpDistance1 - Jump 1's distance.
+     * @param jumpDistance2 - Jump 2's distance.
+     * @param likelihoodJump1 - The likelihood that a jump will be jump 1 vs jump 2.
+     * @param positionX - The x-coordinate of the frog's current position.
+     * @param positionY - The y-coordinate of the frog's current position.
+     */
     constructor(age: number, energy: number, jumpDistance1: number,
                  jumpDistance2: number, likelihoodJump1: number,
                  positionX: number, positionY: number){
@@ -33,6 +48,12 @@ class Frog extends SimulatedObject {
         this.focus = null
     }
 
+    /**
+     * This function is intended to be used for the frogs
+     * that are randomly generated at the start of the simulation,
+     * not frogs born into the simulation.
+     * @returns The newly generated frog.
+     */
     static generateStarterFrog(){
 
         const age = 0

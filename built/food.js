@@ -13,8 +13,15 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+/**
+ * This class represents pieces of food in the simulation.
+ */
 var Food = /** @class */ (function (_super) {
     __extends(Food, _super);
+    /**
+     * @constructor
+     * The position of the food is randomly generated.
+     */
     function Food() {
         var _this = _super.call(this) || this;
         _this.positionX = Math.floor(Math.random() * canvas.width);

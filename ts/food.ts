@@ -1,3 +1,6 @@
+/**
+ * This class represents pieces of food in the simulation.
+ */
 class Food extends SimulatedObject{
 
     static color: string = 'orange'
@@ -5,6 +8,10 @@ class Food extends SimulatedObject{
 
 
 
+    /**
+     * @constructor
+     * The position of the food is randomly generated.
+     */
     constructor(){
         super()
         this.positionX =  Math.floor(Math.random() * canvas.width)
