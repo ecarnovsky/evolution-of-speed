@@ -1,13 +1,13 @@
 document.getElementById('start-pause-btn').addEventListener('click', togglePause);
-var canvas = document.querySelector('canvas');
+const canvas = document.querySelector('canvas');
 canvas.height = 730;
 canvas.width = 730;
-var ctx = canvas.getContext('2d');
-var paused = true;
-var frogs = [];
-var food = [];
-var numberOfTicks = 0;
-var simulationInProgress = false;
+const ctx = canvas.getContext('2d');
+let paused = true;
+let frogs = [];
+let food = [];
+let numberOfTicks = 0;
+let simulationInProgress = false;
 /**
  * This function controls what to do when the start/pause/resume
  * button is clicked. Things like changing the value of the
@@ -36,14 +36,14 @@ function togglePause() {
  */
 function startNewSimulation() {
     simulationInProgress = true;
-    var INITIAL_POPULATION = 10;
-    var INITIAL_FOOD = 20;
-    for (var i = 0; i < INITIAL_POPULATION; i++) {
-        var newFrog = Frog.generateStarterFrog();
+    const INITIAL_POPULATION = 10;
+    const INITIAL_FOOD = 20;
+    for (let i = 0; i < INITIAL_POPULATION; i++) {
+        const newFrog = Frog.generateStarterFrog();
         frogs.push(newFrog);
     }
-    for (var i = 0; i < INITIAL_FOOD; i++) {
-        var newFood = new Food();
+    for (let i = 0; i < INITIAL_FOOD; i++) {
+        const newFood = new Food();
         food.push(newFood);
     }
     loopSimulation();
@@ -62,8 +62,8 @@ function loopSimulation() {
     // Clears the canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     // Renders food to the canvas
-    for (var i = 0; i < food.length; i++) {
-        var position = food[i].getPosition();
+    for (let i = 0; i < food.length; i++) {
+        let position = food[i].getPosition();
         ctx.beginPath();
         ctx.arc(position.x, position.y, Food.radius, 0, Math.PI * 2, true);
         ctx.closePath();
@@ -71,15 +71,19 @@ function loopSimulation() {
         ctx.fill();
     }
     // Renders frogs to the canvas
-    for (var i = 0; i < frogs.length; i++) {
+    for (let i = 0; i < frogs.length; i++) {
         frogs[i].doAction(frogs, food);
-        var position = frogs[i].getPosition();
+        if (frogs[i] === undefined) {
+            continue;
+        }
+        let position = frogs[i].getPosition();
         ctx.beginPath();
         ctx.arc(position.x, position.y, Frog.radius, 0, Math.PI * 2, true);
         ctx.closePath();
         ctx.fillStyle = Frog.color;
         ctx.fill();
     }
+    frogs = frogs.filter(el => el !== undefined);
     // Calls the loop to be run again after a set delay
     setTimeout(loopSimulation, 1000);
 }

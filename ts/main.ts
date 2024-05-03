@@ -90,6 +90,10 @@ function loopSimulation(){
     for(let i = 0; i < frogs.length; i++){
 
         frogs[i].doAction(frogs, food)
+        
+        if(frogs[i] === undefined){
+            continue
+        }
         let position = frogs[i].getPosition()
         ctx.beginPath()
         ctx.arc(position.x, position.y, Frog.radius, 0, Math.PI * 2, true)
@@ -98,6 +102,8 @@ function loopSimulation(){
         ctx.fill()
 
     }
+
+    frogs = frogs.filter( el => el !== undefined) 
 
      // Calls the loop to be run again after a set delay
     setTimeout(loopSimulation, 1000)

@@ -1,23 +1,7 @@
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        if (typeof b !== "function" && b !== null)
-            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 /**
  * This class represents frogs in the simulation.
  */
-var Frog = /** @class */ (function (_super) {
-    __extends(Frog, _super);
+class Frog extends SimulatedObject {
     /**
      * @constructor
      * This constructor is intended to be used for frogs born into the simulation,
@@ -30,18 +14,17 @@ var Frog = /** @class */ (function (_super) {
      * @param positionX - The x-coordinate of the frog's current position.
      * @param positionY - The y-coordinate of the frog's current position.
      */
-    function Frog(age, energy, jumpDistance1, jumpDistance2, likelihoodJump1, positionX, positionY) {
-        var _this = _super.call(this) || this;
-        _this.age = age;
-        _this.energy = energy;
-        _this.jumpDistance1 = jumpDistance1;
-        _this.jumpDistance2 = jumpDistance2;
-        _this.likelihoodJump1 = likelihoodJump1;
-        _this.positionX = positionX;
-        _this.positionY = positionY;
-        _this.alive = true;
-        _this.focus = null;
-        return _this;
+    constructor(age, energy, jumpDistance1, jumpDistance2, likelihoodJump1, positionX, positionY) {
+        super();
+        this.age = age;
+        this.energy = energy;
+        this.jumpDistance1 = jumpDistance1;
+        this.jumpDistance2 = jumpDistance2;
+        this.likelihoodJump1 = likelihoodJump1;
+        this.positionX = positionX;
+        this.positionY = positionY;
+        this.alive = true;
+        this.focus = null;
     }
     /**
      * This function is intended to be used for the frogs
@@ -49,46 +32,87 @@ var Frog = /** @class */ (function (_super) {
      * not frogs born into the simulation.
      * @returns The newly generated frog.
      */
-    Frog.generateStarterFrog = function () {
-        var age = 0;
-        var energy = 59;
-        var jumpDistance1 = Math.floor(Math.random() * (100 - 5)) + 5;
-        var jumpDistance2 = Math.floor(Math.random() * (100 - 5)) + 5;
-        var likelihoodJump1 = Math.floor(Math.random() * 100);
-        var positionX = Math.floor(Math.random() * canvas.width);
-        var positionY = Math.floor(Math.random() * canvas.height);
+    static generateStarterFrog() {
+        const age = 0;
+        const energy = 59;
+        const jumpDistance1 = Math.floor(Math.random() * (100 - 5)) + 5;
+        const jumpDistance2 = Math.floor(Math.random() * (100 - 5)) + 5;
+        const likelihoodJump1 = Math.floor(Math.random() * 100);
+        const positionX = Math.floor(Math.random() * canvas.width);
+        const positionY = Math.floor(Math.random() * canvas.height);
         return new Frog(age, energy, jumpDistance1, jumpDistance2, likelihoodJump1, positionX, positionY);
-    };
-    Frog.prototype.doAction = function (frogs, food) {
+    }
+    doAction(frogs, food) {
+        if (this.age > Frog.lifespan) {
+            const index = frogs.findIndex(x => x === this);
+            frogs[index] = undefined;
+            return;
+        }
+        if (!food.includes(this.focus) || !frogs.includes(this.focus)) {
+            this.focus = undefined;
+        }
         if (this.energy < Frog.energyWhenSeekFood) {
-            this.focus = food[0];
+            this.focus = this.findClosestObject(food);
         }
-        var positionOfFocus = this.focus.getPosition();
-        var doJump1 = (Math.random() * 100 < this.likelihoodJump1) ? true : false;
-        if (Math.abs(this.positionX - positionOfFocus.x) > Math.abs(this.positionY - positionOfFocus.y)) {
-            if (this.positionX < positionOfFocus.x) {
-                this.positionX += doJump1 ? this.jumpDistance1 : this.jumpDistance2;
+        else if (this.focus === undefined) {
+            this.focus = this.findClosestObject(food);
+        }
+        if (this.focus !== undefined) {
+            const positionOfFocus = this.focus.getPosition();
+            const doJump1 = (Math.random() * 100 < this.likelihoodJump1) ? true : false;
+            if (Math.abs(this.positionX - positionOfFocus.x) > Math.abs(this.positionY - positionOfFocus.y)) {
+                if (this.positionX < positionOfFocus.x) {
+                    this.positionX += doJump1 ? this.jumpDistance1 : this.jumpDistance2;
+                }
+                else {
+                    this.positionX -= doJump1 ? this.jumpDistance1 : this.jumpDistance2;
+                }
             }
             else {
-                this.positionX -= doJump1 ? this.jumpDistance1 : this.jumpDistance2;
+                if (this.positionY < positionOfFocus.y) {
+                    this.positionY += doJump1 ? this.jumpDistance1 : this.jumpDistance2;
+                }
+                else {
+                    this.positionY -= doJump1 ? this.jumpDistance1 : this.jumpDistance2;
+                }
             }
-        }
-        else {
-            if (this.positionY < positionOfFocus.y) {
-                this.positionY += doJump1 ? this.jumpDistance1 : this.jumpDistance2;
-            }
-            else {
-                this.positionY -= doJump1 ? this.jumpDistance1 : this.jumpDistance2;
+            if (Math.abs(this.positionX - positionOfFocus.x) < 15 && Math.abs(this.positionY - positionOfFocus.y) < 15) {
+                this.energy += Frog.energyGainedFromFood;
+                const index = food.findIndex(x => x === this.focus);
+                food.splice(index, 1);
             }
         }
         this.age += 1;
         this.energy -= 1;
-    };
-    Frog.radius = 10;
-    Frog.lifespan = 100;
-    Frog.energyGainedFromFood = 30;
-    Frog.energyLostFromBirth = 30;
-    Frog.energyWhenSeekFood = 60;
-    Frog.color = 'green';
-    return Frog;
-}(SimulatedObject));
+    }
+    /**
+     * This methods takes in an array that is looped through to find
+     * which object is closest to the frog on the canvas.
+     * @param array - An array of SimulatedObjects, such as frogs or food.
+     * @returns The object in the array that is closest to the frog.
+     */
+    findClosestObject(array) {
+        if (array.length === 0) {
+            return undefined;
+        }
+        else {
+            let closestObject;
+            let distanceToClosestObject = 0;
+            for (let i = 0; i < array.length; i++) {
+                let positionOfObject = array[i].getPosition();
+                let distance = Math.abs(this.positionX - positionOfObject.x) + Math.abs(this.positionY - positionOfObject.y);
+                if (distance < distanceToClosestObject || i === 0) {
+                    closestObject = array[i];
+                    distanceToClosestObject = distance;
+                }
+            }
+            return closestObject;
+        }
+    }
+}
+Frog.radius = 10;
+Frog.lifespan = 5; //70
+Frog.energyGainedFromFood = 30;
+Frog.energyLostFromBirth = 30;
+Frog.energyWhenSeekFood = 60;
+Frog.color = 'green';

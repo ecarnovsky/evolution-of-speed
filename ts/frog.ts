@@ -4,7 +4,7 @@
 class Frog extends SimulatedObject {
 
     static radius: number = 10
-    static lifespan: number = 100
+    static lifespan: number = 5//70
     static energyGainedFromFood: number = 30
     static energyLostFromBirth: number = 30
     static energyWhenSeekFood: number = 60
@@ -70,28 +70,49 @@ class Frog extends SimulatedObject {
 
     doAction(frogs: Frog[], food: Food[]){
 
+        if(this.age > Frog.lifespan){
+            const index = frogs.findIndex( x => x === this)
+            frogs[index] = undefined
+            return
+        }
+
+        if(!food.includes(this.focus) || !frogs.includes(this.focus as Frog)){
+            this.focus = undefined
+        }
+
 
         if(this.energy < Frog.energyWhenSeekFood){
-            this.focus = food[0]
+            this.focus = this.findClosestObject(food)
+        } else if (this.focus === undefined){
+            this.focus = this.findClosestObject(food)
         }
 
-        const positionOfFocus = this.focus.getPosition()
-        const doJump1: boolean = (Math.random() * 100 < this.likelihoodJump1) ? true : false
+        if(this.focus !== undefined){
+        
+            const positionOfFocus = this.focus.getPosition()
+            const doJump1: boolean = (Math.random() * 100 < this.likelihoodJump1) ? true : false
 
-        if(Math.abs(this.positionX - positionOfFocus.x) > Math.abs(this.positionY - positionOfFocus.y)){
-            if(this.positionX < positionOfFocus.x){
-                this.positionX += doJump1 ? this.jumpDistance1 : this.jumpDistance2
+            if(Math.abs(this.positionX - positionOfFocus.x) > Math.abs(this.positionY - positionOfFocus.y)){
+                if(this.positionX < positionOfFocus.x){
+                    this.positionX += doJump1 ? this.jumpDistance1 : this.jumpDistance2
+                } else {
+                    this.positionX -= doJump1 ? this.jumpDistance1 : this.jumpDistance2
+                }
             } else {
-                this.positionX -= doJump1 ? this.jumpDistance1 : this.jumpDistance2
+                if(this.positionY < positionOfFocus.y){
+                    this.positionY += doJump1 ? this.jumpDistance1 : this.jumpDistance2
+                } else {
+                    this.positionY -= doJump1 ? this.jumpDistance1 : this.jumpDistance2
+                }
             }
-        } else {
-            if(this.positionY < positionOfFocus.y){
-                this.positionY += doJump1 ? this.jumpDistance1 : this.jumpDistance2
-            } else {
-                this.positionY -= doJump1 ? this.jumpDistance1 : this.jumpDistance2
+
+            if(Math.abs(this.positionX - positionOfFocus.x) < 15 && Math.abs(this.positionY - positionOfFocus.y) < 15){
+                this.energy += Frog.energyGainedFromFood
+                const index = food.findIndex( x => x === this.focus)
+                food.splice(index, 1)
             }
+
         }
-
 
 
 
@@ -99,6 +120,37 @@ class Frog extends SimulatedObject {
         this.age += 1
         this.energy -= 1
         
+    }
+
+
+    /**
+     * This methods takes in an array that is looped through to find
+     * which object is closest to the frog on the canvas.
+     * @param array - An array of SimulatedObjects, such as frogs or food.
+     * @returns The object in the array that is closest to the frog.
+     */
+    findClosestObject(array: SimulatedObject[]){
+
+        if(array.length === 0){
+            return undefined
+        }else{
+
+            let closestObject: SimulatedObject
+            let distanceToClosestObject: number = 0
+
+            for(let i = 0; i < array.length; i++){
+
+                let positionOfObject = array[i].getPosition()
+
+                let distance: number = Math.abs(this.positionX - positionOfObject.x) + Math.abs(this.positionY - positionOfObject.y)
+
+                if( distance < distanceToClosestObject || i === 0){
+                    closestObject = array[i]
+                    distanceToClosestObject = distance
+                }
+            }
+            return closestObject
+        }
     }
 
 }
