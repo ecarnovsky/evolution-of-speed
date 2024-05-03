@@ -23,6 +23,19 @@ class Frog extends SimulatedObject {
         this.likelihoodJump1 = likelihoodJump1;
         this.positionX = positionX;
         this.positionY = positionY;
+        let num = Math.random();
+        if (num < .25) {
+            this.lastDirection = Directions.Up;
+        }
+        else if (num < .5) {
+            this.lastDirection = Directions.Down;
+        }
+        else if (num < .75) {
+            this.lastDirection = Directions.Right;
+        }
+        else {
+            this.lastDirection = Directions.Left;
+        }
         this.alive = true;
         this.focus = null;
     }
@@ -63,17 +76,21 @@ class Frog extends SimulatedObject {
             if (Math.abs(this.positionX - positionOfFocus.x) > Math.abs(this.positionY - positionOfFocus.y)) {
                 if (this.positionX < positionOfFocus.x) {
                     this.positionX += doJump1 ? this.jumpDistance1 : this.jumpDistance2;
+                    this.lastDirection = Directions.Right;
                 }
                 else {
                     this.positionX -= doJump1 ? this.jumpDistance1 : this.jumpDistance2;
+                    this.lastDirection = Directions.Left;
                 }
             }
             else {
                 if (this.positionY < positionOfFocus.y) {
                     this.positionY += doJump1 ? this.jumpDistance1 : this.jumpDistance2;
+                    this.lastDirection = Directions.Down;
                 }
                 else {
                     this.positionY -= doJump1 ? this.jumpDistance1 : this.jumpDistance2;
+                    this.lastDirection = Directions.Up;
                 }
             }
             if (Math.abs(this.positionX - positionOfFocus.x) < 15 && Math.abs(this.positionY - positionOfFocus.y) < 15) {
@@ -117,3 +134,10 @@ Frog.energyLostFromBirth = 30;
 Frog.energyWhenSeekFood = 60;
 Frog.energyLostPerDay = 2;
 Frog.color = 'green';
+var Directions;
+(function (Directions) {
+    Directions[Directions["Up"] = 0] = "Up";
+    Directions[Directions["Right"] = 1] = "Right";
+    Directions[Directions["Left"] = 2] = "Left";
+    Directions[Directions["Down"] = 3] = "Down";
+})(Directions || (Directions = {}));

@@ -19,6 +19,7 @@ class Frog extends SimulatedObject {
     jumpDistance1: number
     jumpDistance2: number
     likelihoodJump1: number
+    lastDirection: Directions
 
     /**
      * @constructor
@@ -44,6 +45,17 @@ class Frog extends SimulatedObject {
         this.likelihoodJump1 = likelihoodJump1
         this.positionX = positionX
         this.positionY = positionY
+
+        let num = Math.random() 
+        if(num < .25){
+            this.lastDirection = Directions.Up
+        } else if (num < .5){
+            this.lastDirection = Directions.Down
+        } else if (num < .75){
+            this.lastDirection = Directions.Right
+        } else {
+            this.lastDirection = Directions.Left
+        }
 
         this.alive = true
         this.focus = null
@@ -96,14 +108,18 @@ class Frog extends SimulatedObject {
             if(Math.abs(this.positionX - positionOfFocus.x) > Math.abs(this.positionY - positionOfFocus.y)){
                 if(this.positionX < positionOfFocus.x){
                     this.positionX += doJump1 ? this.jumpDistance1 : this.jumpDistance2
+                    this.lastDirection = Directions.Right
                 } else {
                     this.positionX -= doJump1 ? this.jumpDistance1 : this.jumpDistance2
+                    this.lastDirection = Directions.Left
                 }
             } else {
                 if(this.positionY < positionOfFocus.y){
                     this.positionY += doJump1 ? this.jumpDistance1 : this.jumpDistance2
+                    this.lastDirection = Directions.Down
                 } else {
                     this.positionY -= doJump1 ? this.jumpDistance1 : this.jumpDistance2
+                    this.lastDirection = Directions.Up
                 }
             }
 
@@ -154,4 +170,12 @@ class Frog extends SimulatedObject {
         }
     }
 
+}
+
+
+enum Directions {
+    Up,
+    Right,
+    Left,
+    Down
 }

@@ -12,6 +12,7 @@ let frogs: Frog[] = []
 let food: Food[] = []
 let numberOfTicks: number = 0
 let simulationInProgress: boolean = false
+let simulationOver = false
 
 /**
  * This function controls what to do when the start/pause/resume
@@ -73,6 +74,10 @@ function loopSimulation(){
     if(paused){
         return
     }
+    if(frogs.length === 0){
+        simulationOver = true
+        paused = true 
+    }
 
     // Clears the canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height)
@@ -101,11 +106,25 @@ function loopSimulation(){
             continue
         }
         let position = frogs[i].getPosition()
-        ctx.beginPath()
-        ctx.arc(position.x, position.y, Frog.radius, 0, Math.PI * 2, true)
-        ctx.closePath()
-        ctx.fillStyle = Frog.color
-        ctx.fill()
+        const image = new Image(0,0)
+        if(frogs[i].lastDirection === Directions.Up){
+            image.src = 'images/frog-up.png'
+        } else if(frogs[i].lastDirection === Directions.Down){
+            image.src = 'images/frog-down.png'
+        } else if(frogs[i].lastDirection === Directions.Right){
+            image.src = 'images/frog-right.png'
+        } else {
+            image.src = 'images/frog-left.png'
+        }
+        const width = 35 
+        const height = 35
+        image.onload = () => ctx.drawImage(image, position.x - (width/2), position.y - (height/2),  35, 35)
+        
+        // ctx.beginPath()
+        // ctx.arc(position.x, position.y, Frog.radius, 0, Math.PI * 2, true)
+        // ctx.closePath()
+        // ctx.fillStyle = Frog.color
+        // ctx.fill()
 
     }
 
