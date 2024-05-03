@@ -51,7 +51,7 @@ var Frog = /** @class */ (function (_super) {
      */
     Frog.generateStarterFrog = function () {
         var age = 0;
-        var energy = 90;
+        var energy = 59;
         var jumpDistance1 = Math.floor(Math.random() * (50 - 5)) + 5;
         var jumpDistance2 = Math.floor(Math.random() * (50 - 5)) + 5;
         var likelihoodJump1 = Math.floor(Math.random() * 100);
@@ -59,13 +59,34 @@ var Frog = /** @class */ (function (_super) {
         var positionY = Math.floor(Math.random() * canvas.height);
         return new Frog(age, energy, jumpDistance1, jumpDistance2, likelihoodJump1, positionX, positionY);
     };
-    Frog.prototype.doAction = function () {
-        this.positionX += 1;
+    Frog.prototype.doAction = function (frogs, food) {
+        if (this.energy < Frog.energyWhenSeekFood) {
+            this.focus = food[0];
+        }
+        var positionOfFocus = this.focus.getPosition();
+        if (Math.abs(this.positionX - positionOfFocus.x) > Math.abs(this.positionY - positionOfFocus.y)) {
+            if (this.positionX < positionOfFocus.x) {
+                this.positionX += 1;
+            }
+            else {
+                this.positionX -= 1;
+            }
+        }
+        else {
+            if (this.positionY < positionOfFocus.y) {
+                this.positionY += 1;
+            }
+            else {
+                this.positionY -= 1;
+            }
+        }
+        this.age += 1;
+        this.energy -= 1;
     };
     Frog.radius = 10;
     Frog.lifespan = 100;
     Frog.energyGainedFromFood = 30;
-    Frog.energyLostFromBirth = 20;
+    Frog.energyLostFromBirth = 30;
     Frog.energyWhenSeekFood = 60;
     Frog.color = 'green';
     return Frog;

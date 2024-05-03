@@ -72,7 +72,7 @@ function loopSimulation() {
     }
     // Renders frogs to the canvas
     for (var i = 0; i < frogs.length; i++) {
-        frogs[i].doAction();
+        frogs[i].doAction(frogs, food);
         var position = frogs[i].getPosition();
         ctx.beginPath();
         ctx.arc(position.x, position.y, Frog.radius, 0, Math.PI * 2, true);

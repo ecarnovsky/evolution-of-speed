@@ -6,7 +6,7 @@ class Frog extends SimulatedObject {
     static radius: number = 10
     static lifespan: number = 100
     static energyGainedFromFood: number = 30
-    static energyLostFromBirth: number = 20
+    static energyLostFromBirth: number = 30
     static energyWhenSeekFood: number = 60
     static color: string = 'green'
 
@@ -14,7 +14,7 @@ class Frog extends SimulatedObject {
     age: number
     energy: number
     alive: boolean
-    focus: object
+    focus: SimulatedObject
     jumpDistance1: number
     jumpDistance2: number
     likelihoodJump1: number
@@ -57,7 +57,7 @@ class Frog extends SimulatedObject {
     static generateStarterFrog(){
 
         const age = 0
-        const energy = 90
+        const energy = 59
         const jumpDistance1 = Math.floor(Math.random() * (50 - 5)) + 5
         const jumpDistance2 = Math.floor(Math.random() * (50 - 5)) + 5
         const likelihoodJump1 = Math.floor(Math.random() * 100)
@@ -68,9 +68,36 @@ class Frog extends SimulatedObject {
     }
 
 
-    doAction(){
-        this.positionX += 1
-    }
+    doAction(frogs: Frog[], food: Food[]){
 
+
+        if(this.energy < Frog.energyWhenSeekFood){
+            this.focus = food[0]
+        }
+
+        const positionOfFocus = this.focus.getPosition()
+
+        if(Math.abs(this.positionX - positionOfFocus.x) > Math.abs(this.positionY - positionOfFocus.y)){
+            if(this.positionX < positionOfFocus.x){
+                this.positionX += 1
+            } else {
+                this.positionX -= 1
+            }
+        } else {
+            if(this.positionY < positionOfFocus.y){
+                this.positionY += 1
+            } else {
+                this.positionY -= 1
+            }
+        }
+
+
+
+
+
+        this.age += 1
+        this.energy -= 1
+        
+    }
 
 }
