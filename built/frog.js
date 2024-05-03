@@ -52,8 +52,8 @@ var Frog = /** @class */ (function (_super) {
     Frog.generateStarterFrog = function () {
         var age = 0;
         var energy = 59;
-        var jumpDistance1 = Math.floor(Math.random() * (50 - 5)) + 5;
-        var jumpDistance2 = Math.floor(Math.random() * (50 - 5)) + 5;
+        var jumpDistance1 = Math.floor(Math.random() * (100 - 5)) + 5;
+        var jumpDistance2 = Math.floor(Math.random() * (100 - 5)) + 5;
         var likelihoodJump1 = Math.floor(Math.random() * 100);
         var positionX = Math.floor(Math.random() * canvas.width);
         var positionY = Math.floor(Math.random() * canvas.height);
@@ -64,20 +64,21 @@ var Frog = /** @class */ (function (_super) {
             this.focus = food[0];
         }
         var positionOfFocus = this.focus.getPosition();
+        var doJump1 = (Math.random() * 100 < this.likelihoodJump1) ? true : false;
         if (Math.abs(this.positionX - positionOfFocus.x) > Math.abs(this.positionY - positionOfFocus.y)) {
             if (this.positionX < positionOfFocus.x) {
-                this.positionX += 1;
+                this.positionX += doJump1 ? this.jumpDistance1 : this.jumpDistance2;
             }
             else {
-                this.positionX -= 1;
+                this.positionX -= doJump1 ? this.jumpDistance1 : this.jumpDistance2;
             }
         }
         else {
             if (this.positionY < positionOfFocus.y) {
-                this.positionY += 1;
+                this.positionY += doJump1 ? this.jumpDistance1 : this.jumpDistance2;
             }
             else {
-                this.positionY -= 1;
+                this.positionY -= doJump1 ? this.jumpDistance1 : this.jumpDistance2;
             }
         }
         this.age += 1;

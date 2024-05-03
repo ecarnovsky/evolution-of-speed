@@ -58,8 +58,8 @@ class Frog extends SimulatedObject {
 
         const age = 0
         const energy = 59
-        const jumpDistance1 = Math.floor(Math.random() * (50 - 5)) + 5
-        const jumpDistance2 = Math.floor(Math.random() * (50 - 5)) + 5
+        const jumpDistance1 = Math.floor(Math.random() * (100 - 5)) + 5
+        const jumpDistance2 = Math.floor(Math.random() * (100 - 5)) + 5
         const likelihoodJump1 = Math.floor(Math.random() * 100)
         const positionX =  Math.floor(Math.random() * canvas.width)
         const positionY = Math.floor(Math.random() * canvas.height)
@@ -76,18 +76,19 @@ class Frog extends SimulatedObject {
         }
 
         const positionOfFocus = this.focus.getPosition()
+        const doJump1: boolean = (Math.random() * 100 < this.likelihoodJump1) ? true : false
 
         if(Math.abs(this.positionX - positionOfFocus.x) > Math.abs(this.positionY - positionOfFocus.y)){
             if(this.positionX < positionOfFocus.x){
-                this.positionX += 1
+                this.positionX += doJump1 ? this.jumpDistance1 : this.jumpDistance2
             } else {
-                this.positionX -= 1
+                this.positionX -= doJump1 ? this.jumpDistance1 : this.jumpDistance2
             }
         } else {
             if(this.positionY < positionOfFocus.y){
-                this.positionY += 1
+                this.positionY += doJump1 ? this.jumpDistance1 : this.jumpDistance2
             } else {
-                this.positionY -= 1
+                this.positionY -= doJump1 ? this.jumpDistance1 : this.jumpDistance2
             }
         }
 
