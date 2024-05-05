@@ -128,7 +128,11 @@ function loopSimulation(){
 
     }
 
+
+
     frogs = frogs.filter( el => el !== undefined) 
+
+    console.log(frogs.length, " frogs")
 
      // Calls the loop to be run again after a set delay
     setTimeout(loopSimulation, 1000)
