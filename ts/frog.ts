@@ -1,3 +1,4 @@
+
 /**
  * This class represents frogs in the simulation.
  */
@@ -72,8 +73,8 @@ class Frog extends SimulatedObject {
         const jumpDistance1 = Math.floor(Math.random() * (100 - 5)) + 5
         const jumpDistance2 = Math.floor(Math.random() * (100 - 5)) + 5
         const likelihoodJump1 = Math.floor(Math.random() * 100)
-        const positionX =  Math.floor(Math.random() * canvas.width)
-        const positionY = Math.floor(Math.random() * canvas.height)
+        const positionX =  Math.floor(Math.random() * mainCanvas.width)
+        const positionY = Math.floor(Math.random() * mainCanvas.height)
 
         return new Frog(age, energy, jumpDistance1, jumpDistance2, likelihoodJump1, positionX, positionY)
     }

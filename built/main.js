@@ -1,8 +1,7 @@
 document.getElementById('start-pause-btn').addEventListener('click', togglePause);
-const canvas = document.querySelector('canvas');
-canvas.height = 730;
-canvas.width = 730;
-const ctx = canvas.getContext('2d');
+const mainCanvas = document.querySelector('#main-canvas');
+mainCanvas.height = 730;
+mainCanvas.width = 730;
 const MAX_FOOD = 100;
 let paused = true;
 let frogs = [];
@@ -57,6 +56,7 @@ function startNewSimulation() {
  * frogs preform actions.
  */
 function loopSimulation() {
+    const ctx = mainCanvas.getContext('2d');
     // Stops the loop if the simulation is paused
     if (paused) {
         return;
@@ -66,7 +66,7 @@ function loopSimulation() {
         paused = true;
     }
     // Clears the canvas
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.clearRect(0, 0, mainCanvas.width, mainCanvas.height);
     if (numberOfTicks % 5 === 0 && food.length < MAX_FOOD) {
         food.push(new Food());
     }

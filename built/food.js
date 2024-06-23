@@ -8,8 +8,8 @@ class Food extends SimulatedObject {
      */
     constructor() {
         super();
-        this.positionX = Math.floor(Math.random() * canvas.width);
-        this.positionY = Math.floor(Math.random() * canvas.height);
+        this.positionX = Math.floor(Math.random() * mainCanvas.width);
+        this.positionY = Math.floor(Math.random() * mainCanvas.height);
     }
 }
 Food.color = 'orange';

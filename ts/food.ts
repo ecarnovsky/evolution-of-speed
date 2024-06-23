@@ -1,7 +1,7 @@
 /**
  * This class represents pieces of food in the simulation.
  */
-class Food extends SimulatedObject{
+ class Food extends SimulatedObject{
 
     static color: string = 'orange'
     static radius: number = 4
@@ -14,8 +14,8 @@ class Food extends SimulatedObject{
      */
     constructor(){
         super()
-        this.positionX =  Math.floor(Math.random() * canvas.width)
-        this.positionY = Math.floor(Math.random() * canvas.height)
+        this.positionX =  Math.floor(Math.random() * mainCanvas.width)
+        this.positionY = Math.floor(Math.random() * mainCanvas.height)
     }
 
 }

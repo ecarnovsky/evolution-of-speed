@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "sass": "sass --watch css/style.scss:css/style.css"
+    "watch:scss": "sass --watch css/style.scss:css/style.css",
+    "build:scss": "sass css/style.scss:css/style.css",
+    "build:ts": "tsc",
+    "build": "npm run build:ts && npm run build:scss"
   },
   "author": "",
   "license": "ISC",
@@ -14,6 +17,7 @@
     "@babel/preset-env": "^7.24.0",
     "@babel/preset-typescript": "^7.23.3",
     "@types/babel__core": "^7.20.5",
+    "@types/chart.js": "^2.9.41",
     "babel-jest": "^29.7.0",
     "typedoc": "^0.25.9",
     "typescript": "^5.3.3"
