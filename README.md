@@ -1,2 +1,2 @@
 # Leap Evolution
-This is a little experiment I'm doing to see how leaping patterns form in frogs. I only just got started, so check back at a later date to see the results.
+Leap Evolution shows how a population of frogs responds to scarcity of food. Micro-evolution allows the most agile frogs to out compete the slower frogs, which leads to a population of more efficient hunters within only a few generations. Watch it [here](https://leapevo.netlify.app). 
