@@ -19,6 +19,7 @@
     "@types/babel__core": "^7.20.5",
     "@types/chart.js": "^2.9.41",
     "babel-jest": "^29.7.0",
+    "sass": "^1.77.6",
     "typedoc": "^0.25.9",
     "typescript": "^5.3.3"
   }
