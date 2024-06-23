@@ -198,9 +198,9 @@ class Frog extends SimulatedObject {
 
         const childAge = 0
         const childEnergy = 60
-        const childJump1Distance = (this.jumpDistance1 + otherParent.jumpDistance1) / 2 + (Math.floor(Math.random() * 30) - 15)
-        const childJump2Distance = (this.jumpDistance2 + otherParent.jumpDistance2) / 2 + (Math.floor(Math.random() * 30) - 15)
-        const childLikelihoodJump1 = (this.likelihoodJump1 + otherParent.likelihoodJump1) / 2 + (Math.floor(Math.random() * 20) - 10)
+        const childJump1Distance = (this.jumpDistance1 + otherParent.jumpDistance1) / 2 + (Math.floor(Math.random() * 12) - 6)
+        const childJump2Distance = (this.jumpDistance2 + otherParent.jumpDistance2) / 2 + (Math.floor(Math.random() * 12) - 6)
+        const childLikelihoodJump1 = (this.likelihoodJump1 + otherParent.likelihoodJump1) / 2 + (Math.floor(Math.random() * 12) - 6)
         const childPositionX = Math.random() > 0.5 ? this.positionX + 20 : this.positionX - 20
         const childPositionY = Math.random() > 0.5 ? this.positionY + 20 : this.positionY - 20
 
