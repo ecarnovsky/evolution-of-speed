@@ -1,8 +1,9 @@
-
+import { Frog, Directions } from './frog'
+import { Food } from './food'
 
 document.getElementById('start-pause-btn').addEventListener('click', togglePause)
 
-const mainCanvas = document.querySelector('#main-canvas') as HTMLCanvasElement
+export const mainCanvas = document.querySelector('#main-canvas') as HTMLCanvasElement
 mainCanvas.height = 730
 mainCanvas.width = 730 
 

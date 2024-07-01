@@ -1,8 +1,10 @@
-
+import { SimulatedObject } from './simulated-object'
+import { Food } from './food'
+import { mainCanvas } from './main'
 /**
  * This class represents frogs in the simulation.
  */
-class Frog extends SimulatedObject {
+export class Frog extends SimulatedObject {
 
     static lifespan: number = 70
     static energyGainedFromFood: number = 30
@@ -218,7 +220,7 @@ class Frog extends SimulatedObject {
 }
 
 
-enum Directions {
+export enum Directions {
     Up,
     Right,
     Left,

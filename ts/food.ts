@@ -1,7 +1,10 @@
+import { SimulatedObject } from './simulated-object'
+import { mainCanvas } from './main'
+
 /**
  * This class represents pieces of food in the simulation.
  */
- class Food extends SimulatedObject{
+ export class Food extends SimulatedObject{
 
     static color: string = 'orange'
     static radius: number = 4

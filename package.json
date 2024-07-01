@@ -8,7 +8,8 @@
     "watch:scss": "sass --watch css/style.scss:css/style.css",
     "build:scss": "sass css/style.scss:css/style.css",
     "build:ts": "tsc",
-    "build": "npm run build:ts && npm run build:scss"
+    "build:webpack": "webpack",
+    "build": "npm run build:scss && npm run build:webpack"
   },
   "author": "",
   "license": "ISC",
@@ -20,7 +21,10 @@
     "@types/chart.js": "^2.9.41",
     "babel-jest": "^29.7.0",
     "sass": "^1.77.6",
+    "ts-loader": "^9.5.1",
     "typedoc": "^0.25.9",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "webpack": "^5.92.1",
+    "webpack-cli": "^5.1.4"
   }
 }

@@ -3,7 +3,7 @@
  * inherit from. It contains fields and methods relating to 
  * an object's position on the canvas.
  */
-class SimulatedObject{
+export class SimulatedObject{
     
     positionX: number
     positionY: number
